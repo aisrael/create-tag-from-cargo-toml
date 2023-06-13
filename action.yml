@@ -19,6 +19,7 @@ runs:
     - shell: bash
       run: |
         echo working-directory: ${{ inputs.working-directory || github.workspace }}
+    - uses: actions/checkout@v3
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7
@@ -29,19 +30,7 @@ runs:
       env:
         PATH_TO_CARGO_TOML: ${{ inputs.path-to-cargo-toml }}
       run: |
-        gem install actiondoc
-        set -- ''
-        if [[ -n "${TEMPLATE_FILENAME}" ]]; then
-          set -- "$@" --template "${TEMPLATE_FILENAME}"
-        fi
-        if [[ -n "${PATH_TO_ACTION_YML}" ]]; then
-          set -- "$@" "${PATH_TO_ACTION_YML}"
-        fi
-        if [[ -z "${OUTPUT_FILENAME}" ]]; then
-          actiondoc "$@"
-        else
-          actiondoc "$@" > "${OUTPUT_FILENAME}"
-        fi
+        ruby create-tag.rb $PATH_TO_CARGO_TOML
 
 branding:
   icon: book-open
