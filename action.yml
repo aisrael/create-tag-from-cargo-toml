@@ -1,0 +1,48 @@
+name: create-tag-from-cargo-toml
+description: >-
+  Create and push a Git tag (which can be used to trigger a release workflow) 
+  from the version in the Rust manifest file (cargo.toml)
+
+inputs:
+  path-to-cargo-toml:
+    description: >-
+      The path to the `Cargo.toml` file to generate documentation for. If not specified, assumes `Cargo.toml`.
+    required: false
+  working-directory:
+    description: >-
+      The directory to perform the action in, if not $GITHUB_WORKSPACE
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        echo working-directory: ${{ inputs.working-directory || github.workspace }}
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+        bundler-cache: true
+        working-directory: ${{ inputs.working-directory || github.workspace }}
+    - shell: bash
+      working-directory: ${{ inputs.working-directory || github.workspace }}
+      env:
+        PATH_TO_CARGO_TOML: ${{ inputs.path-to-cargo-toml }}
+      run: |
+        gem install actiondoc
+        set -- ''
+        if [[ -n "${TEMPLATE_FILENAME}" ]]; then
+          set -- "$@" --template "${TEMPLATE_FILENAME}"
+        fi
+        if [[ -n "${PATH_TO_ACTION_YML}" ]]; then
+          set -- "$@" "${PATH_TO_ACTION_YML}"
+        fi
+        if [[ -z "${OUTPUT_FILENAME}" ]]; then
+          actiondoc "$@"
+        else
+          actiondoc "$@" > "${OUTPUT_FILENAME}"
+        fi
+
+branding:
+  icon: book-open
+  color: purple
