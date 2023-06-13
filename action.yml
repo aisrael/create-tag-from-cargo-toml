@@ -33,6 +33,9 @@ runs:
       env:
         PATH_TO_CARGO_TOML: ${{ inputs.path-to-cargo-toml }}
       run: |
+        set -x
+        pwd
+        ls -l .github/actions/create-tag-from-cargo-toml/
         ruby .github/actions/create-tag-from-cargo-toml/create-tag.rb $PATH_TO_CARGO_TOML
 
 branding:
