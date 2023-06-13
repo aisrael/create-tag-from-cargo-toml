@@ -33,7 +33,7 @@ runs:
       env:
         PATH_TO_CARGO_TOML: ${{ inputs.path-to-cargo-toml }}
       run: |
-        ruby "${GITHUB_WORKSPACE}/.github/actions/create-tag-from-cargo-toml/create-tag.rb" $PATH_TO_CARGO_TOML
+        ruby .github/actions/create-tag-from-cargo-toml/create-tag.rb $PATH_TO_CARGO_TOML
 
 branding:
   icon: book-open
