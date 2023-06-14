@@ -6,7 +6,7 @@ description: >-
 inputs:
   path-to-cargo-toml:
     description: >-
-      The (relative) path (in the source repository) to the `Cargo.toml` file to generate documentation for. If not specified, assumes `Cargo.toml`.
+      The path to the `Cargo.toml` file to generate documentation for. If not specified, assumes `Cargo.toml`.
     required: false
 
 runs:
