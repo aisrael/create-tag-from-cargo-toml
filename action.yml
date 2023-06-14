@@ -17,10 +17,7 @@ runs:
       with:
         clean: false
         repository: "aisrael/create-tag-from-cargo-toml"
-        sparse-checkout: |
-          create-tag.rb
-          Gemfile
-          Gemfile.lock
+        path: create-tag-from-cargo-toml
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7
@@ -32,6 +29,9 @@ runs:
         set -x
         pwd
         ls -l
+        ls -l create-tag-from-cargo-toml
+        cp create-tag-from-cargo-toml/create-tag.rb .
+        cp create-tag-from-cargo-toml/Gemfile* .
         bundle exec -- ruby create-tag.rb "${PATH_TO_CARGO_TOML}"
 
 branding:
