@@ -12,10 +12,14 @@ rescue Octokit::NotFound
   exit 1
 end
 
+puts "ARGV => #{ARGV.inspect}"
+
 CARGO_TOML = begin
   first = ARGV.shift
   first && !first.empty? ? first : 'Cargo.toml'
 end
+
+puts "CARGO_TOML => #{CARGO_TOML.inspect}"
 
 # Read config file
 unless File.exist?(CARGO_TOML)
