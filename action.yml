@@ -18,6 +18,7 @@ runs:
   steps:
     - uses: actions/checkout@v3
       with:
+        clean: false
         repository: "aisrael/create-tag-from-cargo-toml"
     - uses: ruby/setup-ruby@v1
       with:
