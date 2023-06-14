@@ -4,6 +4,10 @@ description: >-
   from the version in the Rust manifest file (cargo.toml)
 
 inputs:
+  github-token:
+    description: >-
+      The GitHub token to use to push the tag. Use `{{ secrets.GITHUB_TOKEN }}` to use the token provided by GitHub Actions.
+    required: true
   path-to-cargo-toml:
     description: >-
       The path to the `Cargo.toml` file to generate documentation for. If not specified, assumes `Cargo.toml`.
@@ -32,12 +36,12 @@ runs:
         bundler-cache: true
     - shell: bash
       env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
         PATH_TO_CARGO_TOML: ${{ inputs.path-to-cargo-toml }}
       run: |
         set -x
         pwd
         ls -l
-        echo ${GITHUB_TOKEN:(-4)}
         bundle exec -- ruby create-tag.rb "${PATH_TO_CARGO_TOML}"
 
 branding:
