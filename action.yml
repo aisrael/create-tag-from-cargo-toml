@@ -28,7 +28,7 @@ runs:
         set -x
         pwd
         ls -l
-        bundle exec -- ruby create-tag.rb src/$PATH_TO_CARGO_TOML
+        bundle exec -- ruby create-tag.rb $PATH_TO_CARGO_TOML
 
 branding:
   icon: book-open
