@@ -18,6 +18,14 @@ runs:
         clean: false
         repository: "aisrael/create-tag-from-cargo-toml"
         path: create-tag-from-cargo-toml
+    - shell: bash
+      run: |
+        set -x
+        pwd
+        ls -l
+        ls -l create-tag-from-cargo-toml
+        cp create-tag-from-cargo-toml/create-tag.rb .
+        cp create-tag-from-cargo-toml/Gemfile* .
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7
@@ -29,9 +37,6 @@ runs:
         set -x
         pwd
         ls -l
-        ls -l create-tag-from-cargo-toml
-        cp create-tag-from-cargo-toml/create-tag.rb .
-        cp create-tag-from-cargo-toml/Gemfile* .
         bundle exec -- ruby create-tag.rb "${PATH_TO_CARGO_TOML}"
 
 branding:
