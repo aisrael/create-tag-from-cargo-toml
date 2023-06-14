@@ -16,27 +16,21 @@ inputs:
 runs:
   using: composite
   steps:
-    - shell: bash
-      run: |
-        echo working-directory: ${{ inputs.working-directory || github.workspace }}
     - uses: actions/checkout@v3
       with:
         repository: "aisrael/create-tag-from-cargo-toml"
-        path: ".github/actions/create-tag-from-cargo-toml"
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7
         bundler-cache: true
-        working-directory: ".github/actions/create-tag-from-cargo-toml"
     - shell: bash
-      working-directory: ${{ inputs.working-directory || github.workspace }}
       env:
         PATH_TO_CARGO_TOML: ${{ inputs.path-to-cargo-toml }}
       run: |
         set -x
         pwd
-        ls -l .github/actions/create-tag-from-cargo-toml/
-        ruby -C .github/actions/create-tag-from-cargo-toml create-tag.rb $PATH_TO_CARGO_TOML
+        ls -l
+        ruby create-tag.rb $PATH_TO_CARGO_TOML
 
 branding:
   icon: book-open
