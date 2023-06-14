@@ -47,13 +47,13 @@ unless semver.length == 3
 end
 
 # Get GitHub token
-token = ENV.fetch('GITHUB_TOKEN', nil)
+token = ENV.fetch('GITHUB_TOKEN')
 if !token || token.empty?
   puts '::error::$GITHUB_TOKEN not provided! Exiting...'
   exit 1
 end
 
-github_repository = ENV.fetch('GITHUB_REPOSITORY', nil)
+github_repository = ENV.fetch('GITHUB_REPOSITORY')
 if !github_repository || github_repository.empty?
   puts '::error::$GITHUB_REPOSITORY not provided! Exiting...'
   exit 1
