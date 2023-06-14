@@ -19,7 +19,6 @@ runs:
     - uses: actions/checkout@v3
       with:
         repository: "aisrael/create-tag-from-cargo-toml"
-        path: ".github/actions/create-tag-from-cargo-toml"
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7
