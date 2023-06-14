@@ -36,6 +36,7 @@ runs:
         bundler-cache: true
     - shell: bash
       env:
+        OCTOKIT_SILENT: "true"
         GITHUB_TOKEN: ${{ inputs.github-token }}
         PATH_TO_CARGO_TOML: ${{ inputs.path-to-cargo-toml }}
       run: |
