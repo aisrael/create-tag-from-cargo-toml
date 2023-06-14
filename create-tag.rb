@@ -5,13 +5,16 @@ require 'json'
 require 'octokit'
 require 'toml'
 
-CARGO_TOML = ARGV.shift || 'Cargo.toml'
-
 def attempt_to_get_git_sha_from_git(client, github_repository, branch_for_tag)
   client.branch(github_repository, branch_for_tag).commit.sha
 rescue Octokit::NotFound
   puts "::error::Branch #{branch_for_tag} not found! Exiting..."
   exit 1
+end
+
+CARGO_TOML = begin
+  first = ARGV.shift
+  first && !first.empty? ? first : 'Cargo.toml'
 end
 
 # Read config file
