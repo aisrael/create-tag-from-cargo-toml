@@ -17,6 +17,10 @@ runs:
       with:
         clean: false
         repository: "aisrael/create-tag-from-cargo-toml"
+        sparse-checkout: |
+          create-tag.rb
+          Gemfile
+          Gemfile.lock
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7
