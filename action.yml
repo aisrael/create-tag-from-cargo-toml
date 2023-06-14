@@ -36,7 +36,7 @@ runs:
         set -x
         pwd
         ls -l .github/actions/create-tag-from-cargo-toml/
-        ruby .github/actions/create-tag-from-cargo-toml/create-tag.rb $PATH_TO_CARGO_TOML
+        ruby -C .github/actions/create-tag-from-cargo-toml create-tag.rb $PATH_TO_CARGO_TOML
 
 branding:
   icon: book-open
