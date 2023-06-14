@@ -4,10 +4,6 @@ description: >-
   from the version in the Rust manifest file (cargo.toml)
 
 inputs:
-  source-repository:
-    description: >-
-      The source repository containing Cargo.toml, for example, "gitsudo-io/ghctl".
-    required: true
   path-to-cargo-toml:
     description: >-
       The (relative) path (in the source repository) to the `Cargo.toml` file to generate documentation for. If not specified, assumes `Cargo.toml`.
@@ -19,16 +15,12 @@ runs:
     - name: Checkout this repository
       uses: actions/checkout@v3
       with:
+        clean: false
         repository: "aisrael/create-tag-from-cargo-toml"
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7
         bundler-cache: true
-    - name: Checkout source repository
-      uses: actions/checkout@v3
-      with:
-        repository: ${{ inputs.source-repository }}
-        path: src
     - shell: bash
       env:
         PATH_TO_CARGO_TOML: ${{ inputs.path-to-cargo-toml }}
