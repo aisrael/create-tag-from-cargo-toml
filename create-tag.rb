@@ -3,7 +3,7 @@
 
 require 'json'
 require 'octokit'
-require 'toml'
+require 'toml-rb'
 
 def attempt_to_get_git_sha_from_git(client, github_repository, branch_for_tag)
   client.branch(github_repository, branch_for_tag).commit.sha
@@ -27,7 +27,7 @@ unless File.exist?(CARGO_TOML)
   exit 1
 end
 begin
-  manifest = TOML.load_file(CARGO_TOML)
+  manifest = TomlRB.load_file(CARGO_TOML)
 rescue Parslet::ParseFailed
   puts "::error::Failed to parse #{CARGO_TOML}! Exiting..."
   exit 1
