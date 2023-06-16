@@ -85,14 +85,18 @@ GITHUB_ACTIONS_USER = "github-actions[bot]"
 GITHUB_ACTIONS_EMAIL = "github-actions@github.com"
 
 # Create tag
-tagger_date = DateTime.now.iso8601
-created_tag = client.create_tag(github_repository, new_tag_name, new_tag_name, git_sha_for_tag, 'commit', GITHUB_ACTIONS_USER, GITHUB_ACTIONS_EMAIL, tagger_date)
-puts "::startgroup::Created tag #{new_tag_name} pointing to #{git_sha_for_tag} on #{branch_for_tag}"
-puts JSON.pretty_generate(created_tag.to_h)
-puts '::endgroup::'
+# tagger_date = DateTime.now.iso8601
+# created_tag = client.create_tag(github_repository, new_tag_name, new_tag_name, git_sha_for_tag, 'commit', GITHUB_ACTIONS_USER, GITHUB_ACTIONS_EMAIL, tagger_date)
+# puts "::startgroup::Created tag #{new_tag_name} pointing to #{git_sha_for_tag} on #{branch_for_tag}"
+# puts JSON.pretty_generate(created_tag.to_h)
+# puts '::endgroup::'
 
-# Create the Git ref
-created_ref = client.create_ref(github_repository, "refs/tags/#{new_tag_name}", git_sha_for_tag)
-puts "::startgroup::Created ref #{created_ref.ref} pointing to #{created_ref.object.sha}"
-puts JSON.pretty_generate(created_ref.to_h)
-puts '::endgroup::'
+# # Create the actual tag and "push"
+# created_ref = client.create_ref(github_repository, "refs/tags/#{new_tag_name}", git_sha_for_tag)
+# puts "::startgroup::Created ref #{created_ref.ref} pointing to #{created_ref.object.sha}"
+# puts JSON.pretty_generate(created_ref.to_h)
+# puts '::endgroup::'
+
+`git config --global user.name "#{GITHUB_ACTIONS_USER}"`
+`git config --global user.email "#{GITHUB_ACTIONS_EMAIL}"`
+`git tag -a #{new_tag_name} -m "v#{new_tag_name}" && git push --tags`
