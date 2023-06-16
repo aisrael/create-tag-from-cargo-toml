@@ -81,11 +81,12 @@ branch_for_tag = ENV['BRANCH_FOR_TAG'] || repo.default_branch || (tags.empty? ? 
 git_sha_for_tag = ENV['GIT_SHA_FOR_TAG'] || ENV['GITHUB_SHA'] || attempt_to_get_git_sha_from_git(client, github_repository, branch_for_tag)
 puts "git_sha_for_tag => #{git_sha_for_tag}"
 
-user = client.user
+GITHUB_ACTIONS_USER = "github-actions[bot]"
+GITHUB_ACTIONS_EMAIL = "github-actions@github.com"
 
 # Create tag
 tagger_date = DateTime.now.iso8601
-created_tag = client.create_tag(github_repository, new_tag_name, new_tag_name, git_sha_for_tag, 'commit', user.name, user.email, tagger_date)
+created_tag = client.create_tag(github_repository, new_tag_name, new_tag_name, git_sha_for_tag, 'commit', GITHUB_ACTIONS_USER, GITHUB_ACTIONS_EMAIL, tagger_date)
 puts "::startgroup::Created tag #{new_tag_name} pointing to #{git_sha_for_tag} on #{branch_for_tag}"
 puts JSON.pretty_generate(created_tag.to_h)
 puts '::endgroup::'
